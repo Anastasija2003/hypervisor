@@ -1,5 +1,8 @@
-mini_hypervisor: mini_hypervisor.c
-	gcc -lpthread mini_hypervisor.c -o mini_hypervisor
+guest.img: guest.o
+	ld -T guest.ld guest.o -o guest.img
+
+guest.o: guest.c
+	$(CC) -m64 -ffreestanding -fno-pic -c -o $@ $^
 
 clean:
-	rm -f mini_hypervisor
+	rm -f guest.o guest.img
